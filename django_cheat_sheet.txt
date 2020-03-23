@@ -22,6 +22,9 @@
 7. run django server
 	python manage.py runserver
 
+create super user for the admin panel
+	python3 manage.py createsuperuser
+
 8. create templates and static folders in project root
 9. add in settings:
 	'DIRS': [os.path.join(BASE_DIR, 'templates')],
@@ -107,14 +110,38 @@
 	{{ blog.title }}
 
 
+13. commit to github
+	git init
+	git add -A
+	git commit -m "[message]"
+	create github repository
+	run 2 lines from repository
 
+23. deploy in pythonanywhere
+	create bash
+	git clone [link to github repository]
+	mkvirtualenv --python=/usr/bin/python3.7 portfolioenv
+		deactivate
+		workon portfolioenv
+	go to web in pythonanywhere
+	put the environment just created
+	change source code and working directory to pwd in project root
+	edit wsgi file in pythonanywhere
+		modify path to be pwd of root project
+		modify django settings module to where settings is:\
+			personal_portfolio.settings
+	go to settings file for our project in pythonanywhere
+		add in allowed hosts 'joseflores.pythonanywhere.com'
+		set debug to False
+	collect all static files
+		STATICFILES_DIRS = [
+			os.path.join(BASE_DIR, "static"),
+		]
+		STATIC_URL = '/allstatic/'
+		STATIC_ROOT = os.path.join(BASE_DIR, "allstatic")
 
+		python manage.py collectstatic
 
-
-
-
-collect static files 
-	python manage.py collectstatic
-
-create super user for the admin panel
-	python3 manage.py createsuperuser
+		add the static paths to the directory
+			/allstatic/		/home/joseflores/django3-personal-portfolio/allstatic	 
+			/media/			/home/joseflores/django3-personal-portfolio/media
